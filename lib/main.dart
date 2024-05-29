@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'pages/splash_page.dart';
 import 'pages/onboarding_page.dart';
 import 'pages/signin_page.dart';
+import 'pages/main_page.dart';
 import 'pages/home_page.dart';
+import 'pages/detail_page.dart';
 
 void main() {
   runApp(CoffeeApp());
@@ -19,7 +21,9 @@ class CoffeeApp extends StatelessWidget {
         '/': (context) => SplashPage(),
         '/onboarding': (context) => OnBoardingPage(),
         '/signin': (context) => SignInPage(),
+        '/main': (context) => MainPage(),
         '/home': (context) => HomePage(),
+        '/detail': (context) => DetailPage(),
       },
     );
   }

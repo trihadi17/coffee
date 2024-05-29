@@ -1,8 +1,18 @@
-import 'package:coffee/theme.dart';
 import 'package:flutter/material.dart';
+
+// Theme
+import 'package:coffee/theme.dart';
+
+// Package
 import 'package:google_fonts/google_fonts.dart';
 
+// Widget
+import '../widgets/category.dart';
+import '../widgets/product_card.dart';
+
 class HomePage extends StatelessWidget {
+  int currentIndex = 0;
+
   // Header
   Widget header() {
     // Content
@@ -130,10 +140,165 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  Widget banner() {
+    return Container(
+      margin: EdgeInsets.symmetric(
+        horizontal: 30,
+        vertical: 24,
+      ),
+      height: 140,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        image: DecorationImage(
+          image: AssetImage('assets/header_image.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Stack(
+        children: [
+          Container(
+            margin: EdgeInsets.only(
+              left: 24,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 62,
+                ),
+                Container(
+                  width: 200,
+                  height: 27,
+                  color: Color(0xff1C1C1C),
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                Container(
+                  width: 149,
+                  height: 23,
+                  color: Color(0xff1C1C1C),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 24, top: 13),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 60,
+                  height: 26,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Color(0xffED5151),
+                  ),
+                  child: Text(
+                    'Promo',
+                    style: whiteTextStyle,
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  'Buy one get \none FREE',
+                  style: whiteTextStyle.copyWith(fontSize: 32),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget content() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Category
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              SizedBox(
+                width: 30,
+              ),
+              CategoryCoffee(
+                name: 'Cappucino',
+                isActive: true,
+              ),
+              CategoryCoffee(
+                name: 'Machiato',
+                isActive: false,
+              ),
+              CategoryCoffee(
+                name: 'Latte',
+                isActive: false,
+              ),
+              CategoryCoffee(
+                name: 'Americano',
+                isActive: false,
+              ),
+            ],
+          ),
+        ),
+
+        SizedBox(
+          height: 24,
+        ),
+
+        // Card
+        Container(
+          margin: EdgeInsets.symmetric(
+            horizontal: 30,
+          ),
+          child: Wrap(
+            children: [
+              ProductCard(
+                imageUrl: 'assets/coffe_image1.png',
+                name: 'Cappucino',
+                subName: 'with Chocolate',
+                price: 4.53,
+                rating: 4.8,
+              ),
+              ProductCard(
+                imageUrl: 'assets/coffe_image2.png',
+                name: 'Cappucino',
+                subName: 'with Oat Milk',
+                price: 3.90,
+                rating: 4.9,
+              ),
+              ProductCard(
+                imageUrl: 'assets/coffe_image3.png',
+                name: 'Cappucino',
+                subName: 'with Ice Cream',
+                price: 5.00,
+                rating: 4.7,
+              ),
+              ProductCard(
+                imageUrl: 'assets/coffe_image4.png',
+                name: 'Cappucino',
+                subName: 'with Chocolate',
+                price: 4.69,
+                rating: 4.9,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xffF9F9F9),
       body: Stack(
         children: [
           // Background
@@ -157,6 +322,8 @@ class HomePage extends StatelessWidget {
               // Content
               header(),
               search(),
+              banner(),
+              content(),
             ],
           )
         ],

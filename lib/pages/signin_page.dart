@@ -166,7 +166,7 @@ class _SignInPageState extends State<SignInPage> {
             child: TextButton(
               onPressed: () {
                 Navigator.pushNamedAndRemoveUntil(
-                    context, '/home', (route) => false);
+                    context, '/main', (route) => false);
               },
               style: TextButton.styleFrom(
                 backgroundColor: brownColor,
