@@ -265,10 +265,8 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         );
                       } else {
-                        print('main page');
-                        // Navigator.pushNamedAndRemoveUntil(
-                        //     context, '/main', (route) => false);
-
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/main', (route) => false);
                       }
                     },
                   );
@@ -298,20 +296,29 @@ class _SignInPageState extends State<SignInPage> {
           SizedBox(
             height: 30,
           ),
-          RichText(
-            text: TextSpan(
-              text: 'Don’t have account? ',
-              style: GoogleFonts.sora(color: whiteColor),
-              children: [
-                TextSpan(
-                  text: 'Sign Up',
-                  style: GoogleFonts.sora(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Don’t have account?',
+                style: GoogleFonts.sora(
+                  color: whiteColor,
+                ),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/signup');
+                },
+                child: Text(
+                  'Sign Up',
+                  style: whiteTextStyle.copyWith(
                       decoration: TextDecoration.underline),
-                )
-              ],
-            ),
+                ),
+              ),
+            ],
           ),
           SizedBox(
             height: 30,
