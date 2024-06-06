@@ -8,6 +8,7 @@ Color whiteColor = Color(0xffffffff);
 Color greyColor = Color(0xff9B9B9B);
 Color greySemiColor = Color(0xff808080);
 Color brownColor = Color(0xffC67C4E);
+Color redColor = Color(0xffFF314A);
 
 TextStyle blackTextStyle = GoogleFonts.sora(
   color: blackColor,
@@ -26,3 +27,13 @@ TextStyle greyTextStyle = GoogleFonts.sora(
 TextStyle greySemiTextStyle = GoogleFonts.sora(
   color: greySemiColor,
 );
+
+TextStyle errorTextStyle = GoogleFonts.sora(
+  color: redColor,
+);
+
+FontWeight light = FontWeight.w300;
+FontWeight regular = FontWeight.w400;
+FontWeight medium = FontWeight.w500;
+FontWeight semiBold = FontWeight.w600;
+FontWeight bold = FontWeight.w700;

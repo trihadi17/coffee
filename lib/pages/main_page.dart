@@ -24,17 +24,12 @@ class _MainPageState extends State<MainPage> {
     switch (currentIndex) {
       case 0:
         return HomePage();
-        break;
       case 1:
         return WishlistPage();
-        break;
-
       case 2:
         return CheckoutPage();
-        break;
       case 3:
         return NotificationPage();
-        break;
       default:
         return HomePage();
     }

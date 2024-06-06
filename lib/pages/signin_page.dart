@@ -1,6 +1,11 @@
-import 'package:coffee/theme.dart';
 import 'package:flutter/material.dart';
+
+// Theme
+import 'package:coffee/theme.dart';
+
+// Package
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -10,6 +15,35 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   // visibility or no
   bool visibility = true;
+
+  // kebutuhan widget lodiang
+  bool isLoading = false;
+
+  // validasi
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  String? _validateInput(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'The field is required';
+    } else if (value.length < 5) {
+      return 'The field must be at least 5 characters long';
+    }
+
+    return null;
+  }
+
+  // Varible FlutterToast
+  late FToast fToast;
+
+  @override
+  void initState() {
+    super.initState();
+    // inisialisasi fluttertoas dengan BuildContext
+    fToast = FToast();
+    fToast.init(context);
+  }
 
   // Header (Logo, title header)
   Widget header() {
@@ -48,31 +82,52 @@ class _SignInPageState extends State<SignInPage> {
       margin: EdgeInsets.symmetric(
         horizontal: 40,
       ),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 82,
-          ),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 82,
+            ),
 
-          // USERNAME
-          Container(
-            padding: EdgeInsets.only(
-              left: 15,
-              top: 17,
-              right: 15,
-            ),
-            height: 55,
-            decoration: BoxDecoration(
-              color: Color(0xff262A34),
-              borderRadius: BorderRadius.circular(17),
-            ),
-            child: TextFormField(
+            // USERNAME
+            TextFormField(
+              controller: _usernameController,
+              validator: _validateInput,
+              // validasi ketika apa (contoh ketika diketik atau selalu)
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              keyboardType: TextInputType.text,
               style: GoogleFonts.sora(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: whiteColor,
               ),
-              decoration: InputDecoration.collapsed(
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Color(0xff262A34),
+                // content padding digunakan ukuran pada konten input
+                contentPadding: const EdgeInsets.symmetric(vertical: 18),
+                // Prefix digunakan sebagai jika ada widget optional, saat ini digunakan untuk padding content
+                prefix: SizedBox(
+                  width: 15,
+                ),
+
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(17),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(17),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(17),
+                  borderSide: BorderSide(color: Colors.green),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(17),
+                  borderSide: BorderSide(color: redColor),
+                ),
+                errorStyle: errorTextStyle,
                 hintText: 'Username',
                 hintStyle: GoogleFonts.sora(
                   fontSize: 14,
@@ -81,31 +136,25 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               ),
             ),
-          ),
 
-          SizedBox(
-            height: 20,
-          ),
-
-          // PASSWORD
-          Container(
-            height: 55,
-            decoration: BoxDecoration(
-              color: Color(0xff262A34),
-              borderRadius: BorderRadius.circular(17),
+            SizedBox(
+              height: 20,
             ),
-            child: TextFormField(
+
+            // PASSWORD
+            TextFormField(
+              controller: _passwordController,
+              validator: _validateInput,
+              // validasi ketika apa (contoh ketika diketik atau selalu)
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               obscureText: visibility,
+              keyboardType: TextInputType.text,
               style: GoogleFonts.sora(
                 fontSize: 14,
                 color: whiteColor,
                 fontWeight: FontWeight.w400,
               ),
               decoration: InputDecoration(
-                hintText: 'Password',
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                ),
                 suffixIcon: GestureDetector(
                   onTap: () {
                     setState(() {
@@ -122,6 +171,32 @@ class _SignInPageState extends State<SignInPage> {
                           color: Color(0xffA9A9A9),
                         ),
                 ),
+                filled: true,
+                fillColor: Color(0xff262A34),
+                // content padding digunakan ukuran pada konten input
+                contentPadding: const EdgeInsets.symmetric(vertical: 18),
+                // Prefix digunakan sebagai jika ada widget optional, saat ini digunakan untuk padding content
+                prefix: SizedBox(
+                  width: 15,
+                ),
+
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(17),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(17),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(17),
+                  borderSide: BorderSide(color: Colors.green),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(17),
+                  borderSide: BorderSide(color: redColor),
+                ),
+                errorStyle: errorTextStyle,
+                hintText: 'Password',
                 hintStyle: GoogleFonts.sora(
                   fontSize: 14,
                   color: Color(0xffA9A9A9),
@@ -129,22 +204,22 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               ),
             ),
-          ),
 
-          SizedBox(
-            height: 6,
-          ),
+            SizedBox(
+              height: 6,
+            ),
 
-          Container(
-            alignment: Alignment(1, 0),
-            child: Text(
-              'Forgot My Password',
-              style: GoogleFonts.sora(
-                color: Color(0xff6A6B70),
+            Container(
+              alignment: Alignment(1, 0),
+              child: Text(
+                'Forgot My Password',
+                style: GoogleFonts.sora(
+                  color: Color(0xff6A6B70),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -165,8 +240,39 @@ class _SignInPageState extends State<SignInPage> {
             width: double.infinity,
             child: TextButton(
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/main', (route) => false);
+                if (_formKey.currentState!.validate()) {
+                  // aktifkan widget loading
+                  setState(() {
+                    isLoading = true;
+                  });
+
+                  Future.delayed(
+                    Duration(seconds: 2),
+                    () {
+                      // nonaktifkan widget loading
+                      setState(() {
+                        isLoading = false;
+                      });
+
+                      // kondisi akun
+                      if (_passwordController.text != '123456') {
+                        // toast
+                        fToast.showToast(
+                          child: errorToast(),
+                          gravity: ToastGravity.SNACKBAR,
+                          toastDuration: Duration(
+                            seconds: 2,
+                          ),
+                        );
+                      } else {
+                        print('main page');
+                        // Navigator.pushNamedAndRemoveUntil(
+                        //     context, '/main', (route) => false);
+
+                      }
+                    },
+                  );
+                }
               },
               style: TextButton.styleFrom(
                 backgroundColor: brownColor,
@@ -176,12 +282,17 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
               ),
-              child: Text(
-                'Sign In',
-                style: whiteTextStyle.copyWith(
-                  fontSize: 18,
-                ),
-              ),
+              child: isLoading
+                  ? CircularProgressIndicator(
+                      color: whiteColor,
+                      backgroundColor: greyColor,
+                    )
+                  : Text(
+                      'Sign In',
+                      style: whiteTextStyle.copyWith(
+                        fontSize: 18,
+                      ),
+                    ),
             ),
           ),
           SizedBox(
@@ -210,12 +321,32 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
+  Widget errorToast() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10),
+      padding: EdgeInsets.all(10),
+      width: 288,
+      height: 42,
+      decoration: BoxDecoration(
+        color: redColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Text(
+        'Incorrect Username or Password',
+        style: whiteTextStyle.copyWith(
+          fontSize: 16,
+          fontWeight: semiBold,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
-        reverse: true,
+        reverse: false,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
