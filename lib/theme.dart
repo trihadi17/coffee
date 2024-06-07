@@ -28,10 +28,6 @@ TextStyle greySemiTextStyle = GoogleFonts.sora(
   color: greySemiColor,
 );
 
-TextStyle errorTextStyle = GoogleFonts.sora(
-  color: redColor,
-);
-
 FontWeight light = FontWeight.w300;
 FontWeight regular = FontWeight.w400;
 FontWeight medium = FontWeight.w500;

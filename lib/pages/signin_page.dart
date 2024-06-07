@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 // Theme
 import 'package:coffee/theme.dart';
 
+// Validator
+import 'package:coffee/validators.dart';
+
 // Package
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -14,7 +17,7 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   // visibility or no
-  bool visibility = true;
+  bool invisibility = true;
 
   // kebutuhan widget lodiang
   bool isLoading = false;
@@ -23,16 +26,6 @@ class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  String? _validateInput(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'The field is required';
-    } else if (value.length < 5) {
-      return 'The field must be at least 5 characters long';
-    }
-
-    return null;
-  }
 
   // Varible FlutterToast
   late FToast fToast;
@@ -93,7 +86,9 @@ class _SignInPageState extends State<SignInPage> {
             // USERNAME
             TextFormField(
               controller: _usernameController,
-              validator: _validateInput,
+              validator: (value) {
+                return validateText(value, 'username');
+              },
               // validasi ketika apa (contoh ketika diketik atau selalu)
               autovalidateMode: AutovalidateMode.onUserInteraction,
               keyboardType: TextInputType.text,
@@ -106,7 +101,11 @@ class _SignInPageState extends State<SignInPage> {
                 filled: true,
                 fillColor: Color(0xff262A34),
                 // content padding digunakan ukuran pada konten input
-                contentPadding: const EdgeInsets.symmetric(vertical: 18),
+                contentPadding: const EdgeInsets.only(
+                  bottom: 18,
+                  top: 18,
+                  right: 15,
+                ),
                 // Prefix digunakan sebagai jika ada widget optional, saat ini digunakan untuk padding content
                 prefix: SizedBox(
                   width: 15,
@@ -127,7 +126,11 @@ class _SignInPageState extends State<SignInPage> {
                   borderRadius: BorderRadius.circular(17),
                   borderSide: BorderSide(color: redColor),
                 ),
-                errorStyle: errorTextStyle,
+                errorStyle: GoogleFonts.sora(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xffFF314A),
+                ),
                 hintText: 'Username',
                 hintStyle: GoogleFonts.sora(
                   fontSize: 14,
@@ -144,10 +147,12 @@ class _SignInPageState extends State<SignInPage> {
             // PASSWORD
             TextFormField(
               controller: _passwordController,
-              validator: _validateInput,
+              validator: (value) {
+                return validateText(value, 'password');
+              },
               // validasi ketika apa (contoh ketika diketik atau selalu)
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              obscureText: visibility,
+              obscureText: invisibility,
               keyboardType: TextInputType.text,
               style: GoogleFonts.sora(
                 fontSize: 14,
@@ -158,10 +163,10 @@ class _SignInPageState extends State<SignInPage> {
                 suffixIcon: GestureDetector(
                   onTap: () {
                     setState(() {
-                      visibility = !visibility;
+                      invisibility = !invisibility;
                     });
                   },
-                  child: visibility
+                  child: invisibility
                       ? Icon(
                           Icons.visibility_off,
                           color: Color(0xffA9A9A9),
@@ -174,7 +179,10 @@ class _SignInPageState extends State<SignInPage> {
                 filled: true,
                 fillColor: Color(0xff262A34),
                 // content padding digunakan ukuran pada konten input
-                contentPadding: const EdgeInsets.symmetric(vertical: 18),
+                contentPadding: const EdgeInsets.only(
+                  bottom: 18,
+                  top: 18,
+                ),
                 // Prefix digunakan sebagai jika ada widget optional, saat ini digunakan untuk padding content
                 prefix: SizedBox(
                   width: 15,
@@ -195,7 +203,11 @@ class _SignInPageState extends State<SignInPage> {
                   borderRadius: BorderRadius.circular(17),
                   borderSide: BorderSide(color: redColor),
                 ),
-                errorStyle: errorTextStyle,
+                errorStyle: GoogleFonts.sora(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xffFF314A),
+                ),
                 hintText: 'Password',
                 hintStyle: GoogleFonts.sora(
                   fontSize: 14,
@@ -352,19 +364,15 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        reverse: false,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 70,
-            ),
-            header(),
-            input(),
-            buttonSign(),
-          ],
-        ),
+      body: ListView(
+        children: [
+          SizedBox(
+            height: 50,
+          ),
+          header(),
+          input(),
+          buttonSign(),
+        ],
       ),
     );
   }
