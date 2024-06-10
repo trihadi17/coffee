@@ -10,8 +10,32 @@ import 'package:google_fonts/google_fonts.dart';
 import '../widgets/category.dart';
 import '../widgets/product_card.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
+
+  // Variable yang menyimpan data category coffee
+  String selectedCategoryCoffee = 'Cappucino';
+  bool isLoading = false;
+
+  // mengambil nilai parameter dari widget CategoryCoffe() ketika di klik dan parsing nilai tersebut ke variable
+  void coffeeSelected(String select) {
+    setState(() {
+      selectedCategoryCoffee = select;
+      isLoading = true;
+    });
+
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        selectedCategoryCoffee = select;
+        isLoading = false;
+      });
+    });
+  }
 
   // Header
   Widget header() {
@@ -231,19 +255,25 @@ class HomePage extends StatelessWidget {
               ),
               CategoryCoffee(
                 name: 'Cappucino',
-                isActive: true,
+                isActive: selectedCategoryCoffee == 'Cappucino',
+                // paramter constructor nya berupa function(string), yang nilai parameter tersebut akan diambil sesuai kategori coffee ketika di klik
+                // kemudian parameter tsebut akan di olah pada function coffeeSelected
+                onTap: coffeeSelected,
               ),
               CategoryCoffee(
                 name: 'Machiato',
-                isActive: false,
+                isActive: selectedCategoryCoffee == 'Machiato',
+                onTap: coffeeSelected,
               ),
               CategoryCoffee(
                 name: 'Latte',
-                isActive: false,
+                isActive: selectedCategoryCoffee == 'Latte',
+                onTap: coffeeSelected,
               ),
               CategoryCoffee(
                 name: 'Americano',
-                isActive: false,
+                isActive: selectedCategoryCoffee == 'Americano',
+                onTap: coffeeSelected,
               ),
             ],
           ),
@@ -254,42 +284,68 @@ class HomePage extends StatelessWidget {
         ),
 
         // Card
-        Container(
-          margin: EdgeInsets.symmetric(
-            horizontal: 30,
-          ),
-          child: Wrap(
-            children: [
-              ProductCard(
-                imageUrl: 'assets/coffe_image1.png',
-                name: 'Cappucino',
-                subName: 'with Chocolate',
-                price: 4.53,
-                rating: 4.8,
+        // Loading dulu sebelum menampilkan data
+        isLoading
+            ? Column(
+                children: [
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Center(
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      child: CircularProgressIndicator(
+                        color: brownColor,
+                        backgroundColor: whiteColor,
+                        strokeWidth: 2,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : Container(
+                margin: EdgeInsets.symmetric(
+                  horizontal: 30,
+                ),
+                child: Wrap(
+                  spacing: 15,
+                  runSpacing: 15,
+                  children: [
+                    ProductCard(
+                      imageUrl: 'assets/coffe_image1.png',
+                      name: 'Cappucino',
+                      subName: 'with Chocolate',
+                      price: 4.53,
+                      rating: 4.8,
+                    ),
+                    ProductCard(
+                      imageUrl: 'assets/coffe_image2.png',
+                      name: 'Cappucino',
+                      subName: 'with Oat Milk',
+                      price: 3.90,
+                      rating: 4.9,
+                    ),
+                    ProductCard(
+                      imageUrl: 'assets/coffe_image3.png',
+                      name: 'Cappucino',
+                      subName: 'with Ice Cream',
+                      price: 5.00,
+                      rating: 4.7,
+                    ),
+                    ProductCard(
+                      imageUrl: 'assets/coffe_image4.png',
+                      name: 'Cappucino',
+                      subName: 'with Chocolate',
+                      price: 4.69,
+                      rating: 4.9,
+                    ),
+                  ],
+                ),
               ),
-              ProductCard(
-                imageUrl: 'assets/coffe_image2.png',
-                name: 'Cappucino',
-                subName: 'with Oat Milk',
-                price: 3.90,
-                rating: 4.9,
-              ),
-              ProductCard(
-                imageUrl: 'assets/coffe_image3.png',
-                name: 'Cappucino',
-                subName: 'with Ice Cream',
-                price: 5.00,
-                rating: 4.7,
-              ),
-              ProductCard(
-                imageUrl: 'assets/coffe_image4.png',
-                name: 'Cappucino',
-                subName: 'with Chocolate',
-                price: 4.69,
-                rating: 4.9,
-              ),
-            ],
-          ),
+
+        SizedBox(
+          height: 20,
         ),
       ],
     );

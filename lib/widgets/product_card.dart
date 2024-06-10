@@ -28,11 +28,7 @@ class ProductCard extends StatelessWidget {
         Navigator.pushNamed(context, '/detail');
       },
       child: Container(
-        margin: EdgeInsets.only(
-          right: 15,
-          bottom: 15,
-        ),
-        width: 160,
+        width: (MediaQuery.of(context).size.width - 75) / 2,
         height: 249,
         decoration: BoxDecoration(
           color: whiteColor,
