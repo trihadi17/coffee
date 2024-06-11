@@ -31,7 +31,7 @@ class ProductCard extends StatelessWidget {
         width: (MediaQuery.of(context).size.width - 75) / 2,
         height: 249,
         decoration: BoxDecoration(
-          color: whiteColor,
+          color: Color(0xffF9F9F9),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -50,6 +50,8 @@ class ProductCard extends StatelessWidget {
                   children: [
                     Image.asset(
                       '${imageUrl}',
+                      width: double.infinity,
+                      height: 132,
                       fit: BoxFit.cover,
                     ),
                     Align(
