@@ -7,6 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 // Widget
 import 'package:coffee/widgets/size_product.dart';
 
+// Pages
+import 'package:coffee/pages/cart_page.dart';
+
 class DetailPage extends StatefulWidget {
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -86,10 +89,20 @@ class _DetailPageState extends State<DetailPage> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        child: Text(
-                          'View My Order',
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 16,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CartPage(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'View My Cart',
+                            style: whiteTextStyle.copyWith(
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ),

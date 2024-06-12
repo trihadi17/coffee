@@ -31,7 +31,6 @@ class _HomePageState extends State<HomePage> {
 
     Future.delayed(Duration(seconds: 2), () {
       setState(() {
-        selectedCategoryCoffee = select;
         isLoading = false;
       });
     });
@@ -50,41 +49,55 @@ class _HomePageState extends State<HomePage> {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 30),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Location',
-                      style: GoogleFonts.sora(
-                        fontSize: 12,
-                        color: Color(0xffB7B7B7),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Location',
+                        style: GoogleFonts.sora(
+                          fontSize: 12,
+                          color: Color(0xffB7B7B7),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Bilzen, Tanjungbalai',
-                          style: GoogleFonts.sora(
-                            color: Color(0xffDDDDDD),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Bilzen, Tanjungbalai',
+                            style: GoogleFonts.sora(
+                              color: Color(0xffDDDDDD),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        Icon(
-                          Icons.keyboard_arrow_down,
-                          color: Colors.white,
-                        )
-                      ],
-                    ),
-                  ],
+                          SizedBox(
+                            width: 4,
+                          ),
+                          Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.white,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/cart');
+                  },
+                  child: Icon(
+                    Icons.shopping_cart_outlined,
+                    color: whiteColor,
+                    size: 25,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
                 ),
                 Container(
                   width: 44,

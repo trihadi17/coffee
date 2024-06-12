@@ -6,7 +6,7 @@ import '../theme.dart';
 // Pages
 import 'home_page.dart';
 import 'wishlist_page.dart';
-import 'checkout_page.dart';
+import 'order_page.dart';
 import 'notification_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -27,7 +27,7 @@ class _MainPageState extends State<MainPage> {
       case 1:
         return WishlistPage();
       case 2:
-        return CheckoutPage();
+        return OrderPage();
       case 3:
         return NotificationPage();
       default:

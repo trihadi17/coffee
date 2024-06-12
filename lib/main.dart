@@ -8,6 +8,7 @@ import 'pages/signup_page.dart';
 import 'pages/main_page.dart';
 import 'pages/home_page.dart';
 import 'pages/detail_page.dart';
+import 'pages/cart_page.dart';
 
 void main() {
   runApp(CoffeeApp());
@@ -26,6 +27,7 @@ class CoffeeApp extends StatelessWidget {
         '/main': (context) => MainPage(),
         '/home': (context) => HomePage(),
         '/detail': (context) => DetailPage(),
+        '/cart': (context) => CartPage(),
       },
     );
   }
