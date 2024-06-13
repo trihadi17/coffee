@@ -7,7 +7,7 @@ import '../theme.dart';
 import 'home_page.dart';
 import 'wishlist_page.dart';
 import 'order_page.dart';
-import 'notification_page.dart';
+import 'profile_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class _MainPageState extends State<MainPage> {
       case 2:
         return OrderPage();
       case 3:
-        return NotificationPage();
+        return ProfilePage();
       default:
         return HomePage();
     }
@@ -185,7 +185,7 @@ class _MainPageState extends State<MainPage> {
                 child: Column(
                   children: [
                     Image.asset(
-                      'assets/notification.png',
+                      'assets/person.png',
                       width: 24,
                       color: currentIndex == 3 ? brownColor : Color(0xff8D8D8D),
                     ),

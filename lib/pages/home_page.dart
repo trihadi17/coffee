@@ -115,6 +115,19 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   width: 10,
                 ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/notification');
+                  },
+                  child: Image.asset(
+                    'assets/notification.png',
+                    width: 24,
+                    color: whiteColor,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
                 Container(
                   width: 44,
                   height: 44,

@@ -11,6 +11,7 @@ import 'pages/detail_page.dart';
 import 'pages/cart_page.dart';
 import 'pages/checkout_page.dart';
 import 'pages/delivery_page.dart';
+import 'pages/notification_page.dart';
 
 void main() {
   runApp(CoffeeApp());
@@ -32,6 +33,7 @@ class CoffeeApp extends StatelessWidget {
         '/cart': (context) => CartPage(),
         '/checkout': (context) => CheckoutPage(),
         '/delivery': (context) => DeliveryPage(),
+        '/notification': (context) => NotificationPage(),
       },
     );
   }
