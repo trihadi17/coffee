@@ -69,6 +69,140 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
+  // USERNAME
+  Widget usernameInput() {
+    return TextFormField(
+      controller: _usernameController,
+      validator: (value) {
+        return validateText(value, 'username');
+      },
+      // validasi ketika apa (contoh ketika diketik atau selalu)
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      keyboardType: TextInputType.text,
+      style: GoogleFonts.sora(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: whiteColor,
+      ),
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Color(0xff262A34),
+        // content padding digunakan ukuran pada konten input
+        contentPadding: const EdgeInsets.only(
+          bottom: 18,
+          top: 18,
+          right: 15,
+        ),
+        // Prefix digunakan sebagai jika ada widget optional, saat ini digunakan untuk padding content
+        prefix: SizedBox(
+          width: 15,
+        ),
+
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(17),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(17),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(17),
+          borderSide: BorderSide(color: Colors.green),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(17),
+          borderSide: BorderSide(color: redColor),
+        ),
+        errorStyle: GoogleFonts.sora(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: Color(0xffFF314A),
+        ),
+        hintText: 'Username',
+        hintStyle: GoogleFonts.sora(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: Color(0xffA9A9A9),
+        ),
+      ),
+    );
+  }
+
+  // PASSWORD
+  Widget passwordInput() {
+    return TextFormField(
+      controller: _passwordController,
+      validator: (value) {
+        return validateText(value, 'password');
+      },
+      // validasi ketika apa (contoh ketika diketik atau selalu)
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      obscureText: invisibility,
+      keyboardType: TextInputType.text,
+      style: GoogleFonts.sora(
+        fontSize: 14,
+        color: whiteColor,
+        fontWeight: FontWeight.w400,
+      ),
+      decoration: InputDecoration(
+        suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              invisibility = !invisibility;
+            });
+          },
+          child: invisibility
+              ? Icon(
+                  Icons.visibility_off,
+                  color: Color(0xffA9A9A9),
+                )
+              : Icon(
+                  Icons.visibility,
+                  color: Color(0xffA9A9A9),
+                ),
+        ),
+        filled: true,
+        fillColor: Color(0xff262A34),
+        // content padding digunakan ukuran pada konten input
+        contentPadding: const EdgeInsets.only(
+          bottom: 18,
+          top: 18,
+        ),
+        // Prefix digunakan sebagai jika ada widget optional, saat ini digunakan untuk padding content
+        prefix: SizedBox(
+          width: 15,
+        ),
+
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(17),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(17),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(17),
+          borderSide: BorderSide(color: Colors.green),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(17),
+          borderSide: BorderSide(color: redColor),
+        ),
+        errorStyle: GoogleFonts.sora(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: Color(0xffFF314A),
+        ),
+        hintText: 'Password',
+        hintStyle: GoogleFonts.sora(
+          fontSize: 14,
+          color: Color(0xffA9A9A9),
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    );
+  }
+
   // Input (Username, password)
   Widget input() {
     return Container(
@@ -80,147 +214,16 @@ class _SignInPageState extends State<SignInPage> {
         child: Column(
           children: [
             SizedBox(
-              height: 82,
+              height: 50,
             ),
-
-            // USERNAME
-            TextFormField(
-              controller: _usernameController,
-              validator: (value) {
-                return validateText(value, 'username');
-              },
-              // validasi ketika apa (contoh ketika diketik atau selalu)
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              keyboardType: TextInputType.text,
-              style: GoogleFonts.sora(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: whiteColor,
-              ),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Color(0xff262A34),
-                // content padding digunakan ukuran pada konten input
-                contentPadding: const EdgeInsets.only(
-                  bottom: 18,
-                  top: 18,
-                  right: 15,
-                ),
-                // Prefix digunakan sebagai jika ada widget optional, saat ini digunakan untuk padding content
-                prefix: SizedBox(
-                  width: 15,
-                ),
-
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17),
-                  borderSide: BorderSide.none,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17),
-                  borderSide: BorderSide(color: Colors.green),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17),
-                  borderSide: BorderSide(color: redColor),
-                ),
-                errorStyle: GoogleFonts.sora(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xffFF314A),
-                ),
-                hintText: 'Username',
-                hintStyle: GoogleFonts.sora(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xffA9A9A9),
-                ),
-              ),
-            ),
-
+            usernameInput(),
             SizedBox(
               height: 20,
             ),
-
-            // PASSWORD
-            TextFormField(
-              controller: _passwordController,
-              validator: (value) {
-                return validateText(value, 'password');
-              },
-              // validasi ketika apa (contoh ketika diketik atau selalu)
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              obscureText: invisibility,
-              keyboardType: TextInputType.text,
-              style: GoogleFonts.sora(
-                fontSize: 14,
-                color: whiteColor,
-                fontWeight: FontWeight.w400,
-              ),
-              decoration: InputDecoration(
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      invisibility = !invisibility;
-                    });
-                  },
-                  child: invisibility
-                      ? Icon(
-                          Icons.visibility_off,
-                          color: Color(0xffA9A9A9),
-                        )
-                      : Icon(
-                          Icons.visibility,
-                          color: Color(0xffA9A9A9),
-                        ),
-                ),
-                filled: true,
-                fillColor: Color(0xff262A34),
-                // content padding digunakan ukuran pada konten input
-                contentPadding: const EdgeInsets.only(
-                  bottom: 18,
-                  top: 18,
-                ),
-                // Prefix digunakan sebagai jika ada widget optional, saat ini digunakan untuk padding content
-                prefix: SizedBox(
-                  width: 15,
-                ),
-
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17),
-                  borderSide: BorderSide.none,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17),
-                  borderSide: BorderSide(color: Colors.green),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17),
-                  borderSide: BorderSide(color: redColor),
-                ),
-                errorStyle: GoogleFonts.sora(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xffFF314A),
-                ),
-                hintText: 'Password',
-                hintStyle: GoogleFonts.sora(
-                  fontSize: 14,
-                  color: Color(0xffA9A9A9),
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-
+            passwordInput(),
             SizedBox(
-              height: 6,
+              height: 20,
             ),
-
             Container(
               alignment: Alignment(1, 0),
               child: Text(
@@ -236,7 +239,7 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  // Sign Button & Sign Up
+  // Sign Button
   Widget buttonSign() {
     return Container(
       margin: EdgeInsets.symmetric(
@@ -245,7 +248,7 @@ class _SignInPageState extends State<SignInPage> {
       child: Column(
         children: [
           SizedBox(
-            height: 120,
+            height: 50,
           ),
           Container(
             height: 55,
@@ -305,35 +308,119 @@ class _SignInPageState extends State<SignInPage> {
                     ),
             ),
           ),
-          SizedBox(
-            height: 30,
-          ),
+        ],
+      ),
+    );
+  }
+
+  // Sign In with GOOGLE & FACEBOOK
+  Widget anotherSignIn() {
+    return Container(
+      margin: EdgeInsets.only(top: 35),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Title
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Don’t have account?',
-                style: GoogleFonts.sora(
-                  color: whiteColor,
-                ),
+              Container(
+                width: 50,
+                height: 1,
+                color: whiteColor,
               ),
               SizedBox(
-                width: 5,
+                width: 7,
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/signup');
-                },
-                child: Text(
-                  'Sign Up',
-                  style: whiteTextStyle.copyWith(
-                      decoration: TextDecoration.underline),
-                ),
+              Text(
+                'Or Sign in With',
+                style: whiteTextStyle.copyWith(fontSize: 11),
+              ),
+              SizedBox(
+                width: 7,
+              ),
+              Container(
+                width: 50,
+                height: 1,
+                color: whiteColor,
               ),
             ],
           ),
+
           SizedBox(
             height: 30,
+          ),
+
+          // Google & Facebook
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: whiteColor,
+                ),
+                child: Center(
+                  child: Image.asset(
+                    'assets/icon_google.png',
+                    width: 24,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: whiteColor,
+                ),
+                child: Center(
+                  child: Image.asset(
+                    'assets/icon_facebook.png',
+                    width: 24,
+                  ),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  // Navigation Sign Up Page
+  Widget navToSignUp() {
+    return Container(
+      margin: EdgeInsets.only(
+        top: 40,
+        bottom: 20,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Don’t have account?',
+            style: GoogleFonts.sora(
+              color: whiteColor,
+            ),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/signup');
+            },
+            child: Text(
+              'Sign Up',
+              style:
+                  whiteTextStyle.copyWith(decoration: TextDecoration.underline),
+            ),
           ),
         ],
       ),
@@ -372,6 +459,8 @@ class _SignInPageState extends State<SignInPage> {
           header(),
           input(),
           buttonSign(),
+          anotherSignIn(),
+          navToSignUp(),
         ],
       ),
     );
