@@ -38,6 +38,9 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
+  // Variable checkbox
+  bool isChecked = false;
+
   // Inisialisasi variable ftoast
   late FToast fToast;
   @override
@@ -336,47 +339,86 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // Checkbox Accept terms & Condition
+  // Remember Me (Checkbox)
+  Widget acceptTerm() {
+    return Row(
+      children: [
+        //* Pada checkbox memiliki padding nya tersendiri, jika ingin mengatur ukuran dari checkbox dan menghilangkan default padding. Bungkus dengan widget Sizedbox atau Container. Sesuakan height/width nya dengan design, misal ukuran checkbox di design width:20, height : 20
+        SizedBox(
+          height: 17,
+          width: 17,
+          child: Checkbox(
+            activeColor: whiteColor,
+            checkColor: brownColor,
+            side: BorderSide(color: brownColor),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            value: isChecked,
+            onChanged: (value) {
+              setState(() {
+                isChecked = value!;
+              });
+            },
+          ),
+        ),
+
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          'Accept terms & Condition',
+          style: GoogleFonts.sora(fontSize: 11, color: whiteColor),
+        ),
+      ],
+    );
+  }
+
   // Button Register
   Widget buttonSignUp() {
     return Column(
       children: [
         SizedBox(
-          height: 62,
+          height: 25,
         ),
         Container(
           width: double.infinity,
           height: 55,
           child: TextButton(
-            onPressed: (() {
-              if (_formkey.currentState!.validate()) {
-                setState(() {
-                  isLoading = true;
-                });
+            onPressed: isChecked
+                ? () {
+                    if (_formkey.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
 
-                Future.delayed(
-                  Duration(seconds: 2),
-                  () {
-                    setState(() {
-                      isLoading = false;
-                    });
+                      Future.delayed(
+                        Duration(seconds: 2),
+                        () {
+                          setState(() {
+                            isLoading = false;
+                          });
 
-                    // TOAST
-                    fToast.showToast(
-                      child: toast(),
-                      toastDuration: Duration(
-                        seconds: 2,
-                      ),
-                      gravity: ToastGravity.SNACKBAR,
-                    );
+                          // TOAST
+                          fToast.showToast(
+                            child: toast(),
+                            toastDuration: Duration(
+                              seconds: 2,
+                            ),
+                            gravity: ToastGravity.SNACKBAR,
+                          );
 
-                    // Navigator
-                    Navigator.pop(context);
-                  },
-                );
-              }
-            }),
+                          // Navigator
+                          Navigator.pop(context);
+                        },
+                      );
+                    }
+                  }
+                : null,
             style: TextButton.styleFrom(
-              backgroundColor: brownColor,
+              backgroundColor:
+                  isChecked ? brownColor : brownColor.withOpacity(0.8),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
                   17,
@@ -392,37 +434,127 @@ class _SignUpPageState extends State<SignUpPage> {
                     'Register',
                     style: whiteTextStyle.copyWith(
                       fontSize: 18,
+                      color:
+                          isChecked ? whiteColor : whiteColor.withOpacity(0.8),
                     ),
                   ),
           ),
         ),
-        SizedBox(
-          height: 30,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Already have an account?',
-              style: GoogleFonts.sora(color: whiteColor),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                'Sign In',
+      ],
+    );
+  }
+
+  // Sign Up With Google/Facebook
+  Widget anotherSignUp() {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      child: Column(
+        children: [
+          // title
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 1,
+                width: 50,
+                color: whiteColor,
+              ),
+              SizedBox(
+                width: 7,
+              ),
+              Text(
+                'Or Sign in With',
                 style: whiteTextStyle.copyWith(
-                  decoration: TextDecoration.underline,
+                  fontSize: 11,
                 ),
               ),
+              SizedBox(
+                width: 7,
+              ),
+              Container(
+                height: 1,
+                width: 50,
+                color: whiteColor,
+              ),
+            ],
+          ),
+
+          SizedBox(
+            height: 20,
+          ),
+
+          // Google & Facebook
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: whiteColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: Image.asset(
+                    'assets/icon_google.png',
+                    width: 24,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: whiteColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: Image.asset(
+                    'assets/icon_facebook.png',
+                    width: 24,
+                  ),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  // Navigation to Sign In
+  Widget navToSignIn() {
+    return Container(
+      margin: EdgeInsets.only(
+        top: 30,
+        bottom: 20,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Already have an account?',
+            style: GoogleFonts.sora(color: whiteColor),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              'Sign In',
+              style: whiteTextStyle.copyWith(
+                decoration: TextDecoration.underline,
+              ),
             ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -440,7 +572,10 @@ class _SignUpPageState extends State<SignUpPage> {
             emailInput(),
             passwordInput(),
             confirmPasswordInput(),
+            acceptTerm(),
             buttonSignUp(),
+            anotherSignUp(),
+            navToSignIn(),
           ],
         ),
       ),
